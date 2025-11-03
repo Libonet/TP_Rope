@@ -1,8 +1,13 @@
 #include <concepts>
+#include <vector>
 #include "rope.h"
 
 #define N 8
 int valor[2*N+1];
+
+int izq(int nodo);
+int der(int nodo);
+
 // argumentos:
 // nodo - nodo a actualizar
 // l_ y r_ - intervalo cubierto por nodo
@@ -36,13 +41,13 @@ using Value = int;
 template<typename G>
 requires Group<G>
 // sintaxis alternativa: template<Group G>
-void invert_all(std::vector<typename G::Value>* arr) {
-  for (int i = 0; i < arr->size(); ++i) {
-    (*arr)[i] = G::inv((*arr)[i]);
+void invert_all(std::vector<typename G::Value>& arr) {
+  for (int& elem : arr) {
+    elem = G::inv(elem);
   }
 }
 
 int main() {
   std::vector<int> v = {1, 2, 3};
-  invert_all<int_suma>(&v);
+  invert_all<int_suma>(v);
 }
