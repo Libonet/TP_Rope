@@ -1,3 +1,10 @@
+# Final program
+test
+
+# Bear output
+compile_commands.json
+.cache/
+
 # Prerequisites
 *.d
 
