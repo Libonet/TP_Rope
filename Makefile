@@ -9,7 +9,7 @@ ROPES = $(wildcard lib/*.h)
 all: test
 .PHONY: all clean run
 
-test: $(TESTS_O)
+test: $(TESTS_O) build/ropeint.o
 	@echo "Linking tests"
 	$(CXX) $(LDFLAGS) $^ -o test
 
@@ -18,10 +18,10 @@ build/test.o: $(TEST_NAMES) $(ROPES)
 	@mkdir -p build
 	$(CXX) $(CXXFLAGS) -c $< -o ./build/test.o
 
-# build/rope.o: lib/rope.cpp lib/rope.h
-# 	@echo "Building rope"
-# 	@mkdir -p build
-# 	$(CXX) $(CXXFLAGS) -c ./lib/rope.cpp -o ./build/rope.o
+build/ropeint.o: lib/ropeint.cpp lib/ropeint.h
+	@echo "Building ropeint"
+	@mkdir -p build
+	$(CXX) $(CXXFLAGS) -c ./lib/ropeint.cpp -o ./build/ropeint.o
 
 run: test
 	@echo "Running tests"
