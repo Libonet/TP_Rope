@@ -1,3 +1,6 @@
+#ifndef __ROPEINT_H__
+#define __ROPEINT_H__
+
 #include <vector>
 
 class RopeInt {
@@ -16,6 +19,7 @@ class RopeInt {
     static int der(int nodo) { return 2 * nodo + 2; }
 
     std::vector<int> arr;
-    int n; // secuencia de n elementos, 2n+1 nodos
+    int n; // secuencia de n elementos, 2n+1 nodos, n potencia de 2
 };
 
+#endif // __ROPEINT_H__
