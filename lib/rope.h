@@ -22,12 +22,12 @@ class Rope {
     // obtiene la suma de un intervalo [l, r)
     Rope(int tam, std::vector<typename Op::Value> vect);
 
-    void update(int i, typename Op::Value val) { update_impl(0, 0, n, i, val); }
-    int sum(int l, int r) { return sum_impl(0, 0, n, l, r); }
+    void update(int i, Op::Value val) { update_impl(0, 0, n, i, val); }
+    Op::Value sum(int l, int r) { return sum_impl(0, 0, n, l, r); }
 
   private:
-    void update_impl(int nodo, int l_, int r_, int i, typename Op::Value val);
-    typename Op::Value sum_impl(int nodo, int l_, int r_, int l, int r);
+    void update_impl(int nodo, int l_, int r_, int i, Op::Value val);
+    Op::Value sum_impl(int nodo, int l_, int r_, int l, int r);
 
     static int izq(int nodo) { return 2 * nodo + 1; }
     static int der(int nodo) { return 2 * nodo + 2; }
