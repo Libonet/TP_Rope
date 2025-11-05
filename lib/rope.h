@@ -40,7 +40,7 @@ template<typename Op>
 requires Monoid<Op>
 Rope<Op>::Rope(int tam, std::vector<typename Op::Value> vect) {
   n = pow(2, ceil(log(tam) / log(2)));
-  arr = std::vector<int>(2 * n + 1);
+  arr = std::vector<typename Op::Value>(2 * n + 1);
 
   int i = 0;
   for (typename Op::Value elem : vect) {
@@ -66,7 +66,7 @@ void Rope<Op>::update_impl(int nodo, int l_, int r_, int i, Op::Value val) {
   int m_ = (l_ + r_) / 2;
   update_impl(izq(nodo), l_, m_, i, val);
   update_impl(der(nodo), m_, r_, i, val);
-  arr[nodo] = arr[izq(nodo)] + arr[der(nodo)];
+  arr[nodo] = Op::op(arr[izq(nodo)], arr[der(nodo)]);
 }
 
 template<typename Op>
@@ -75,9 +75,9 @@ Op::Value Rope<Op>::sum_impl(int nodo, int l_, int r_, int l, int r) {
   if (l <= l_ && r_ <= r) // [l_, r_) contenido en [l, r)
     return arr[nodo];
   if (r <= l_ || r_ <= l) // [l_, r_) intersección [l, r) es vacía
-    return 0;
+    return Op::neut();
   int m_ = (l_ + r_) / 2;
-  return sum_impl(izq(nodo), l_, m_, l, r) + sum_impl(der(nodo), m_, r_, l, r);
+  return Op::op(sum_impl(izq(nodo), l_, m_, l, r), sum_impl(der(nodo), m_, r_, l, r));
 }
 
 #endif // ROPE_H
