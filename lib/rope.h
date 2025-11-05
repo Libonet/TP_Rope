@@ -27,7 +27,7 @@ class Rope {
 
   private:
     void update_impl(int nodo, int l_, int r_, int i, typename Op::Value val);
-    int sum_impl(int nodo, int l_, int r_, int l, int r);
+    typename Op::Value sum_impl(int nodo, int l_, int r_, int l, int r);
 
     static int izq(int nodo) { return 2 * nodo + 1; }
     static int der(int nodo) { return 2 * nodo + 2; }
@@ -71,7 +71,7 @@ void Rope<Op>::update_impl(int nodo, int l_, int r_, int i, Op::Value val) {
 
 template<typename Op>
 requires Monoid<Op>
-int Rope<Op>::sum_impl(int nodo, int l_, int r_, int l, int r) {
+Op::Value Rope<Op>::sum_impl(int nodo, int l_, int r_, int l, int r) {
   if (l <= l_ && r_ <= r) // [l_, r_) contenido en [l, r)
     return arr[nodo];
   if (r <= l_ || r_ <= l) // [l_, r_) intersección [l, r) es vacía
