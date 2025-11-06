@@ -5,6 +5,7 @@
 #include <vector>
 #include <concepts>
 #include "../lib/rope.h"
+#include "../lib/lazyropeint.h"
 
 struct int_suma {
   using Value = int;
@@ -75,10 +76,31 @@ void test_genrope_string() {
   printf("Pasaron los tests de gen rope string!\n");
 }
 
+void test_lazyropeint() {
+  std::vector<int> vect = {3, 7, -1, -1, 9};
+  LazyRopeInt rope(5, vect);
+
+  
+  assert(rope.sum(0, 5) == 17);
+  assert(rope.sum(0, 3) == 9);
+  assert(rope.sum(2, 5) == 7);
+  assert(rope.sum(5, 8) == 0);
+
+  rope.update(2, 5, 3);
+
+  assert(rope.sum(0, 5) == 26);
+  assert(rope.sum(2, 4) == 4);
+  assert(rope.sum(2, 5) == 16);
+  assert(rope.sum(0, 2) == 10);
+
+  printf("Pasaron los tests de lazy rope int!\n");
+}
+
 int main (int argc, char *argv[]) {
     test_ropeint();
     test_genrope_int();
     test_genrope_string();
+    test_lazyropeint();
     return 0;
 }
 
