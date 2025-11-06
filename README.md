@@ -2,7 +2,7 @@
 
 Una cuerda o 'rope' es una estructura de datos que permite representar secuencias de enteros
 y calcular la suma de subsecuencias de manera eficiente.  
-En concreto, una rope es un árbol binario donde:
+En concreto, un rope es un árbol binario donde:
 
 - las hojas almacenan los enteros que definen la secuencia y
 - los nodos internos almacenan la suma de enteros correspondiente al subintervalo definido por sus hojas descendientes.
@@ -15,5 +15,5 @@ En concreto, una rope es un árbol binario donde:
 
 # Build
 
-Para compilar el proyecto, sólo hace falta correr `make`.
+Para compilar el proyecto, sólo hace falta correr `make`.  
 Para correr los tests, ejecutas el programa 'tests' luego de compilar, o corres `make run`
