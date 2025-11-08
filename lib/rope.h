@@ -40,7 +40,7 @@ template<typename Op>
 requires Monoid<Op>
 Rope<Op>::Rope(int tam, std::vector<typename Op::Value> vect) {
   n = pow(2, ceil(log(tam) / log(2)));
-  arr = std::vector<typename Op::Value>(2 * n + 1);
+  arr = std::vector<typename Op::Value>(2 * n + 1, Op::neut());
 
   int i = 0;
   for (typename Op::Value elem : vect) {
