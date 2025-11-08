@@ -5,8 +5,6 @@
 #include <vector>
 #include <math.h>
 
-#include <iostream>
-
 template <typename T>
 concept LazyUpdate = 
   requires { typename T::Value; typename T::Update; } &&
