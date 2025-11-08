@@ -29,6 +29,8 @@ struct string_concat {
 };
 
 void test_ropeint() {
+  printf("Iniciando: test_ropeint\n");
+
   std::vector<int> vect = {3, 7, -1, -1, 9};
   RopeInt rope(5, vect);
 
@@ -44,10 +46,12 @@ void test_ropeint() {
   print_assert(rope.sum(2, 5), 9);
   print_assert(rope.sum(0, 2), 10);
 
-  printf("Pasaron los tests de rope int!\n");
+  printf("Pasaron los tests de rope int!\n\n");
 }
 
 void test_genrope_int() {
+  printf("Iniciando: test_genrope_int\n");
+
   std::vector<int> vect = {3, 7, -1, -1, 9};
   Rope<int_suma> rope(5, vect);
 
@@ -63,30 +67,32 @@ void test_genrope_int() {
   print_assert(rope.sum(2, 5), 9);
   print_assert(rope.sum(0, 2), 10);
 
-  printf("Pasaron los tests de gen rope int!\n");
+  printf("Pasaron los tests de gen rope int!\n\n");
 }
 
 void test_genrope_string() {
+  printf("Iniciando test_genrope_string\n");
+
   std::vector<std::string> vect = {"a", "b", "c", "d", "e"};
   Rope<string_concat> rope(5, vect);
-
   
   print_assert<std::string>(rope.sum(0, 5), "abcde");
-  assert(rope.sum(0, 5) == "abcde");
-  assert(rope.sum(0, 3) == "abc");
-  assert(rope.sum(2, 5) == "cde");
-  assert(rope.sum(5, 8) == "");
+  print_assert<std::string>(rope.sum(0, 3), "abc");
+  print_assert<std::string>(rope.sum(2, 5), "cde");
+  print_assert<std::string>(rope.sum(5, 8), "");
 
   rope.update(2, "z");
 
-  assert(rope.sum(2, 4) == "zd");
-  assert(rope.sum(2, 5) == "zde");
-  assert(rope.sum(0, 2) == "ab");
+  print_assert<std::string>(rope.sum(2, 4), "zd");
+  print_assert<std::string>(rope.sum(2, 5), "zde");
+  print_assert<std::string>(rope.sum(0, 2), "ab");
 
-  printf("Pasaron los tests de gen rope string!\n");
+  printf("Pasaron los tests de gen rope string!\n\n");
 }
 
 void test_lazyropeint() {
+  printf("Iniciando test_lazyropeint\n");
+
   std::vector<int> vect = {3, 7, -1, -1, 9};
   LazyRopeInt rope(5, vect);
 
@@ -103,7 +109,7 @@ void test_lazyropeint() {
   print_assert(rope.sum(2, 5), 16);
   print_assert(rope.sum(0, 2), 10);
 
-  printf("Pasaron los tests de lazy rope int!\n");
+  printf("Pasaron los tests de lazy rope int!\n\n");
 }
 
 int checkedSum(int x, int y) {
@@ -132,14 +138,30 @@ struct int_maximo {
   using Update = int;
   static int query(int x, int y) { return x > y ? x : y; } // una operacion asociativa
   static int neutQ() { return INT_MIN; } // elemento neutro para query
-  static int update(int x, int y) {  
-    return checkedSum(x, y);
-  }
+  static int update(int x, int y) { return checkedSum(x, y); }
   static int neutU() { return 0; }
   static int apply(int up, int val, int len) { return checkedSum(up, val); }
 };
 
+struct lazy_int_suma {
+  using Value = int;
+  using Update = int;
+  static int query(int x, int y) { return checkedSum(x, y); } // una operacion asociativa
+  static int neutQ() { return 0; } // elemento neutro para query
+  static int update(int x, int y) { return checkedSum(x, y); }
+  static int neutU() { return 0; }
+  static int apply(int up, int val, int len) { 
+    int res = val;
+    for (int i = 0; i < len; i++) {
+      res = checkedSum(res, up);
+    }
+    return res;
+  }
+};
+
 void test_lazyrope_gen_int_max() {
+  printf("Iniciando test_lazyrope_gen_int_max\n");
+
   std::vector<int> vect = {3, 7, -1, -1, 9};
   LazyRope<int_maximo> rope(vect.size(), vect);
   
@@ -157,7 +179,28 @@ void test_lazyrope_gen_int_max() {
   print_assert(rope.query(0, 2), 7);
   print_assert(rope.query(0, 3), 8);
 
-  printf("Pasaron los tests de lazy rope generico maximo!\n");
+  printf("Pasaron los tests de lazy rope generico maximo!\n\n");
+}
+
+void test_lazyrope_gen_int_suma() {
+  printf("Iniciando test_lazyrope_gen_int_suma\n");
+
+  std::vector<int> vect = {3, 7, -1, -1, 9};
+  LazyRope<lazy_int_suma> rope(vect.size(), vect);
+
+  print_assert(rope.query(0, 5), 17);
+  print_assert(rope.query(0, 3), 9);
+  print_assert(rope.query(2, 5), 7);
+  print_assert(rope.query(5, 8), 0);
+
+  rope.update(2, 5, 3);
+
+  print_assert(rope.query(0, 5), 26);
+  print_assert(rope.query(2, 4), 4);
+  print_assert(rope.query(2, 5), 16);
+  print_assert(rope.query(0, 2), 10);
+
+  printf("Pasaron los tests de lazy rope generico suma!\n\n");
 }
 
 int main (int argc, char *argv[]) {
@@ -166,6 +209,7 @@ int main (int argc, char *argv[]) {
     test_genrope_string();
     test_lazyropeint();
     test_lazyrope_gen_int_max();
+    test_lazyrope_gen_int_suma();
     return 0;
 }
 
