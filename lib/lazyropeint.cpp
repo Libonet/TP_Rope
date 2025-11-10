@@ -52,3 +52,16 @@ void LazyRopeInt::propagate(int nodo, int l_, int r_) {
   arr[nodo] = arr[nodo] + lazy[nodo] * len;
   lazy[nodo] = 0;
 }
+
+// EJ 2b
+
+/*
+Para poder actualizar los resultados de las operaciones perezosamente, además de la propiedad asociativa y la existencia del elemento neutro
+por las mismas razones que en el ejercicio 1, se requiere que la operación sea conmutativa para la operación de
+update, puesto que debemos poder reordenar la forma en que actualizamos los valores de los nodos, esto es, debe 
+ser lo mismo actualizar en el nodo padre que actualizar individualmente a cada uno de sus hijos.
+
+Por ejemplo, si tenemos una operación de suma y queremos actualizar un nodo c con hijos a y b con un valor u, 
+tiene que darse la siguiente igualdad: c + 2u = (a + u) + (b + u), donde c = a + b. Luego, necesitamos poder 
+conmutar u y b en la expresión a + b + u + u para que la igualdad se cumpla.
+*/
