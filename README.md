@@ -16,4 +16,5 @@ En concreto, un rope es un árbol binario donde:
 # Build
 
 Para compilar el proyecto, sólo hace falta correr `make`.  
-Para correr los tests, ejecutas el programa 'tests' luego de compilar, o corres `make run`
+Para correr los tests, ejecutas el programa 'tests' luego de compilar, o corres `make all`  
+Para correr tests individuales (rope o lazyrope), ejecutas `./tests rope` o `./tests lazy`, o corres `make rope` o `make lazy`
