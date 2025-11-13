@@ -13,6 +13,8 @@ En concreto, un rope es un árbol binario donde:
 - 'Lazy', de enteros. (lazyropeint.h)
 - 'Lazy', genérico. Definiendo conceptos para la operación. (lazyrope.h)
 
+Las respuestas a las consignas 1b y 2b se encuentran como comentarios en los archivos ropeint.cpp y lazyropeint.cpp, respectivamente.
+
 # Build
 
 Para compilar el proyecto, sólo hace falta correr `make`.  
