@@ -1,3 +1,8 @@
+# Integrantes del grupo
+
+- Santiago Libonati
+- Tomás Maiza
+
 # Implementacion de 'Rope'
 
 Una cuerda o 'rope' es una estructura de datos que permite representar secuencias de enteros
@@ -8,6 +13,7 @@ En concreto, un rope es un árbol binario donde:
 - los nodos internos almacenan la suma de enteros correspondiente al subintervalo definido por sus hojas descendientes.
 
 ### Implementamos distintos tipos de ropes
+
 - Simple, de enteros. (ropeint.h)
 - Simple, genérico. Definiendo conceptos para la operación. (rope.h)
 - 'Lazy', de enteros. (lazyropeint.h)
